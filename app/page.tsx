@@ -762,7 +762,7 @@ export default function Home() {
   }, [])
 
   const handleDownload = useCallback(
-    async (format: 'pdf' | 'docx' | 'txt') => {
+    async (format: 'pdf' | 'docx' | 'txt' | 'html') => {
       if (!state.report) return
 
       try {
@@ -1359,6 +1359,11 @@ export default function Home() {
                                 onClick={() => handleDownload('docx')}
                               >
                                 Download as Word
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                onClick={() => handleDownload('html')}
+                              >
+                                Download as HTML
                               </DropdownMenuItem>
                               <DropdownMenuItem
                                 onClick={() => handleDownload('txt')}

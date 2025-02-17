@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { generateDocx, generatePdf } from '@/lib/documents'
+import { generateDocx, generatePdf, generateHtml } from '@/lib/documents'
 import { type Report } from '@/types'
 
 export async function POST(request: Request) {
@@ -10,7 +10,7 @@ export async function POST(request: Request) {
       reportTitle: body.report?.title
     })
 
-    const { report, format } = body as { report: Report; format: 'pdf' | 'docx' | 'txt' }
+    const { report, format } = body as { report: Report; format: 'pdf' | 'docx' | 'txt' | 'html' }
 
     let content: string | Buffer
     const headers = new Headers()
@@ -29,6 +29,12 @@ export async function POST(request: Request) {
           'Content-Type',
           'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         )
+        break
+
+      case 'html':
+        console.log('Generating HTML')
+        content = generateHtml(report)
+        headers.set('Content-Type', 'text/html')
         break
 
       case 'txt':

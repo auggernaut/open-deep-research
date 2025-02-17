@@ -10,7 +10,7 @@ export const CONFIG = {
   // Search settings
   search: {
     resultsPerPage: 10,
-    maxSelectableResults: 3,
+    maxSelectableResults: 5,
     provider: 'google' as 'google' | 'bing', // Default search provider
     safeSearch: {
       google: 'active' as 'active' | 'off',

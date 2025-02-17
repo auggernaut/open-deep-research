@@ -249,3 +249,17 @@ export function generatePdf(report: Report): Buffer {
     throw new Error('Failed to generate PDF')
   }
 }
+
+export function generateHtml(report: Report): string {
+  const md = new MarkdownIt()
+  
+  return `<h1>${report.title}</h1>
+
+${md.render(report.summary)}
+
+${report.sections
+  .map(section => `
+<h2>${section.title}</h2>
+${md.render(section.content)}`)
+  .join('\n')}`.trim()
+}
