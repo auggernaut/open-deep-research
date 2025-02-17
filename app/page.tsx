@@ -596,13 +596,17 @@ export default function Home() {
         // Select top results with diversity heuristic
         const selectedUrls = new Set<string>()
         const selected = rankedResults.filter((result: SearchResult) => {
-          if (selectedUrls.size >= CONFIG.search.maxSelectableResults)
-            return false
+          if (selectedUrls.size >= CONFIG.search.maxSelectableResults) return false
+          
+          // First try to get diverse sources with good scores
           const domain = new URL(result.url).hostname
           const hasSimilar = Array.from(selectedUrls).some(
             (url) => new URL(url).hostname === domain
           )
-          if (!hasSimilar && result.score && result.score > 0.5) {
+          
+          if ((!hasSimilar && result.score && result.score > 0.5) || 
+              // If we don't have enough diverse sources, take the highest scored ones
+              (selectedUrls.size < CONFIG.search.maxSelectableResults / 2 && result.score && result.score > 0.3)) {
             selectedUrls.add(result.url)
             return true
           }
