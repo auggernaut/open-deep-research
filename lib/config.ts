@@ -2,9 +2,9 @@ export const CONFIG = {
   // Rate limits (requests per minute)
   rateLimits: {
     enabled: true, // Flag to enable/disable rate limiting
-    search: 10,
-    contentFetch: 20,
-    reportGeneration: 2,
+    search: 100,
+    contentFetch: 100,
+    reportGeneration: 100,
   },
 
   // Search settings
@@ -51,15 +51,15 @@ export const CONFIG = {
       enabled: true,
       models: {
         'gpt-4o': {
-          enabled: false,
+          enabled: true,
           label: 'GPT-4o',
         },
         'o1-mini': {
-          enabled: false,
+          enabled: true,
           label: 'o1-mini',
         },
         o1: {
-          enabled: false,
+          enabled: true,
           label: 'o1',
         },
       },
